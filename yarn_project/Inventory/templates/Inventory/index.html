@@ -1,0 +1,76 @@
+{% extends 'Inventory/base.html' %}
+{% block title %} : Projects {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row mx-auto" style="padding:10px;">
+    <div class="col-sm-3">
+      <h1>Project Ideas</h1>
+    </div>
+    <div class="col-sm-9 mb-3">
+      <a href="{% url 'home' %}" class="btn btn-secondary disabled">Active Projects</a>
+      <a href="{% url 'completed' %} " class="btn btn-info">Completed Projects</a>
+      <a href="{% url 'project-create' %} " class="btn btn-primary">New Project</a>
+      <a href="{% url 'yarn' %}" class="btn btn-warning">Yarn</a>
+      <a href="{% url 'yarn-create' %} " class="btn btn-success">New Yarn</a>
+      <a href="{% url 'project-ideas' %}" class="btn" style="background-color:#6a0dad;">&#128161;</a>
+      <a href="{% url 'project-ideas-create' %}" class="btn btn-dark">New &#128161;</a>
+
+
+    </div>
+
+  </div>
+
+
+  {% for project in projects %}
+  {% if not project.is_complete %}
+
+  <div class="card mb-3" style="max-width:90%; margin:auto; padding: 10px;">
+
+    <div class="row">
+      <div class="col-md-2">
+        <a href="{% url 'project-detail' pk=project.id %}">
+          <img src="{{project.image.url}}" class="card-img" alt="{{ project.title }} image"
+            style="max-width: 150px; float:left; margin-right: 5px;"></a>
+      </div>
+      <div class="col-md-4">
+        <div class="card-body">
+
+          <h5 class="card-title"><a href="{% url 'project-detail' pk=project.id %}">{{project.title}}</a></h5>
+          <h5 class="card-title"> For: {{ project.purpose }}</h5>
+
+          <p class="card-text"> Deadline: {{project.deadline}}</p>
+
+
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <h5 class="card-title" style="text-align: center;">Yarn:</h5>
+        <ul>
+          {% for yarn in project.yarn.all%}
+          <li>{{ yarn }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-md-1 ml-3">
+        <p {% if project.priority == 'high' %} class="btn btn-lg btn-outline-danger disabled"
+          {% elif project.priority == 'medium' %}class="btn btn-lg btn-outline-info disabled" {% else %}
+          class=" btn btn-lg btn-outline-success disabled" {% endif %}>{{project.priority}}</p>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+  </div>
+  {% endif %}
+  {%endfor%}
+
+</div>
+{% endblock %}

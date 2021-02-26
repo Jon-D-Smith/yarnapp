@@ -1,0 +1,90 @@
+{% extends 'Inventory/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} : Yarn {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row mx-auto" style="padding:10px;">
+    <div class="col-sm-3">
+      <h1>Project Ideas</h1>
+    </div>
+    <div class="col-sm-9 mb-3">
+      <a href="{% url 'home' %}" class="btn btn-secondary">Active Projects</a>
+      <a href="{% url 'completed' %} " class="btn btn-info">Completed Projects</a>
+      <a href="{% url 'project-create' %} " class="btn btn-primary">New Project</a>
+      <a href="{% url 'yarn' %}" class="btn btn-warning disabled">Yarn</a>
+      <a href="{% url 'yarn-create' %} " class="btn btn-success">New Yarn</a>
+      <a href="{% url 'project-ideas' %}" class="btn" style="background-color:#6a0dad;">&#128161;</a>
+      <a href="{% url 'project-ideas-create' %}" class="btn btn-dark">New &#128161;</a>
+
+    </div>
+
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-0">
+
+    </div>
+    <div class="ml-3">
+      <form method="GET">
+        <select name="sort" id="sort">
+          <option value="">----Sort By----</option>
+          <option value="brand">brand</option>
+          <option value="color">color</option>
+          <option value="amount">amount</option>
+          <option value="weight">weight</option>
+          <option value="color_group">color group</option>
+        </select>
+        {{yarnFilter.form.color.label}}
+        {{yarnFilter.form.color}}
+        {{yarnFilter.form.brand.label}}
+        {{yarnFilter.form.brand}}
+        {{yarnFilter.form.color_group.label}}
+        {{yarnFilter.form.color_group}}
+        <input class="btn btn-info btn-sm" type="submit" value="Search">
+      </form>
+    </div>
+
+  </div>
+
+
+  {% for yarn in yarns %}
+
+
+  <div class="card w-90">
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'yarn-detail' pk=yarn.id%}">{{yarn.color}}</a></h5>
+
+      <div class="card-group">
+        <div class="col-sm-4">
+          <span><strong>Brand:</strong> {{yarn.brand}}</span>
+        </div>
+        <div class="col-sm-4">
+          <span><strong>Weight:</strong> {{yarn.weight}}</span>
+        </div>
+        <div class="col-sm-4">
+          <span><strong>Recommended Hook:</strong> {{yarn.hook}}</span>
+        </div>
+      </div>
+
+      <div class="card-group">
+        <div class="col-sm-4">
+
+          <a href="{% url 'yarn-detail' pk=yarn.id%}">
+            <img class="img-thumbnail" style="width:90px;" src="{{yarn.image.url}}">
+          </a>
+
+        </div>
+        <div class="col-sm-4 mt-4">
+          <span><strong>Amount:</strong> {{yarn.amount}}</span>
+        </div>
+        <div class="col-sm-4 mt-4">
+          <span><strong>Color Group:</strong> {{yarn.color_group}}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%endfor%}
+
+</div>
+{% endblock %}

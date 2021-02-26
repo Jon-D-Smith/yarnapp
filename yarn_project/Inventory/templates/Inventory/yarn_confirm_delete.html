@@ -1,0 +1,78 @@
+{% extends 'Inventory/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}: Delete {% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %} 
+        
+            <div class="form-row">
+                <h1>Delete Confirmation Form:</h1>
+            </div>
+        
+            <div class="form-row">
+                <div class="form-group">
+                    <p>Are you sure you want to delete "{{ yarn.color}}"?</p> 
+                </div>
+            </div>
+            
+                <div class="card mb-2" >
+                    
+                    <h1 class="card-title" style="text-align: center;">{{yarn.color}}</h1>
+                    <img class="card-img-top" src="{{yarn.image.url}}" alt="Image of {{yarn.color}}" style="max-width: 400px; margin:auto;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ yarn.color }} by {{yarn.brand}}</h5>
+            <div class="card-row">
+                <div class="card-group">
+                    <div class="col-md-4">
+                        <p class="card-text">Weight {{yarn.weight}}</p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="card-text">Hook: {{ yarn.hook }}</p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="card-text">Grams: {{yarn.grams}}</p>
+                      </div>
+                </div>
+                
+            </div>
+            <br>
+            <div class="card-row">
+                <div class="card-group">
+                    <div class="col-md-4">
+                        <p class="card-text">Amount: {{yarn.amount}}</p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="card-text">Yards: {{ yarn.yards }}</p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="card-text">Color Group: {{yarn.color_group}}</p>
+                      </div>
+                </div>
+                
+            </div>        
+            <br>
+            <div class="card-row">
+                <div class="card-group">
+                    <h5 class="card-title">Care Instructions:</h5>
+                    <div class="col-md-12">
+                        <p class="card-text">{{yarn.care_instructions}}</p>
+                    </div>
+                </div>
+            </div>
+<br>
+            <div class="form-row">
+                <div class="form-group col-md-10">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-lg">
+                </div>
+                <div class="form-group col-md-2">
+                    <a class="btn btn-secondary btn-lg" href="{% url 'yarn-detail' pk=yarn.id %}">Cancel</a>
+                </div>
+            </div>
+           
+        </form>
+
+        {%endblock%}

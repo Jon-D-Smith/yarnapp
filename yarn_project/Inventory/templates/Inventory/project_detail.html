@@ -1,0 +1,31 @@
+{% extends 'Inventory/base.html' %}
+{% block title %} : {{project.title}} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mb-2" >
+        
+        <h1 class="card-title" style="text-align: center;">{{project.title}}</h1>
+        <img class="card-img-top" src="{{project.image.url}}" alt="Image of {{project.title}}" style="max-width: 400px; margin:auto;">
+        <div class="card-body">
+          <h5 class="card-title">{{ project.title}} for {{project.purpose}}</h5>
+          <p class="card-text"><small class="text-muted">Deadline: {{project.deadline}}</small></p>
+          <p class="card-text">Hook: {{ project.hook }}</p>
+          <h5 class="card-title">Yarn required:</h5>
+          <ul>
+            {% for yarn in project.yarn.all %}
+              <li>{{yarn}}</li>
+            {% endfor %}
+          </ul>
+            
+          <h5 card-title>Pattern:</h5>
+          <p class="card-text">{{project.pattern|safe}}</p>
+          
+        </div>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+        <a href="{% url 'project-update' pk=project.id %}" class="btn btn-info">Update</a>
+        <a href="{% url 'project-delete' pk=project.id %}" class="btn btn-danger">Delete</a>
+      </div>
+</div>
+
+{% endblock %}

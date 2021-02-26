@@ -1,0 +1,48 @@
+{% extends 'Inventory/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}: Delete {% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %} 
+        
+            <div class="form-row">
+                <h1>Delete Confirmation Form:</h1>
+            </div>
+        
+            <div class="form-row">
+                <div class="form-group">
+                    <p>Are you sure you want to delete "{{ projectideas.title}}"?</p> 
+                </div>
+            </div>
+            <div class="card col-md-12 mb-1" >
+                <div class="card-header row" >
+                    <div class="col-md-10">
+                        <h3>{{projectideas.title}}</h3>
+                    </div>
+                   
+                  
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-10">
+                  <p class="card-text">{{projectideas.description|safe}}</p>
+                  </div>
+                </div>
+              </div>
+               
+<br>
+            <div class="form-row">
+                <div class="form-group col-md-10">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-lg">
+                </div>
+                <div class="form-group col-md-2">
+                    <a class="btn btn-secondary btn-lg" href="{% url 'project-ideas' %}">Cancel</a>
+                </div>
+            </div>
+           
+        </form>
+
+        {%endblock%}

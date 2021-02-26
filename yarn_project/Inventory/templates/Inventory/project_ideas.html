@@ -1,0 +1,47 @@
+{% extends 'Inventory/base.html' %}
+
+{% block title %}: Ideas {% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    <div class="row mx-auto" style="padding:10px;">
+        <div class="col-sm-3">
+          <h1 >Project Ideas</h1>
+        </div>
+     <div class="col-sm-9 mb-3">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Active Projects</a>
+        <a href="{% url 'completed' %} " class="btn btn-info">Completed Projects</a>
+        <a href="{% url 'project-create' %} " class="btn btn-primary">New Project</a>
+        <a href="{% url 'yarn' %}" class="btn btn-warning ">Yarn</a>
+        <a href="{% url 'yarn-create' %} " class="btn btn-success">New Yarn</a>
+        <a href="{% url 'project-ideas' %}" class="btn disabled" style="background-color:#6a0dad;">&#128161;</a>
+        <a href="{% url 'project-ideas-create' %}" class="btn btn-dark">New &#128161;</a>
+         
+        
+      </div>
+
+{% for idea in ideas %}
+
+
+
+
+<div class="card col-md-12 mb-1" >
+    <div class="card-header row" >
+        <div class="col-md-10">
+            <h3>{{idea.title}}</h3>
+        </div>
+       
+        <a href="{% url 'project-ideas-update' pk=idea.id %}"  class="btn btn-primary">Edit</a>
+        <a href="{% url 'project-ideas-delete' pk=idea.id %}" class="btn btn-danger ml-2">Delete</a>
+    </div>
+    <div class="card-body row">
+        <div class="col-md-10">
+      <p class="card-text">{{idea.description|safe}}</p>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+{% endblock %}
